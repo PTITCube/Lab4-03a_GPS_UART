@@ -38,8 +38,7 @@ void setup() {
         cdh.println("  PTITCUBE - LAB 4-03a: ĐỌC NMEA THÔ BẰNG UART2   ");
         cdh.println("[INFO] Đang khởi tạo UART2 ở tốc độ 9600 baud...");
     cdh.println("[INFO] Bắt đầu đọc luồng byte NMEA thô từ module GPS...");
-    cdh.println("[LƯU Ý] Các câu tin NMEA thô bắt đầu bằng '$' và kết thúc bằng '*<checksum>'");
-    cdh.println("==================================================\n");
+    cdh.println("[INFO] Dang doc luong NMEA tho...");
 
     // Khởi tạo UART2 nối với GPS
     Serial2.begin(GPS_BAUD, SERIAL_8N1, GPS_RX, GPS_TX);

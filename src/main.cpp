@@ -31,8 +31,27 @@ void setup() {
 }
 
 void loop() {
+    // Đọc trọn vẹn câu tin NMEA từ GPS và giãn cách log 2 giây để người học dễ đọc
+    static char buffer[128];
+    static uint8_t idx = 0;
+
     while (Serial2.available() > 0) {
         char c = (char)Serial2.read();
-        cdh.print(c);
+        if (c == '$') {
+            idx = 0;
+            buffer[idx++] = c;
+        } else if (c == '\n' || c == '\r') {
+            if (idx > 0 && buffer[0] == '$') {
+                buffer[idx] = '\0';
+                cdh.println(buffer);
+                idx = 0;
+                delay(2000); // Độ trễ 2 giây để quan sát rõ từng bản tin NMEA
+                break;
+            }
+        } else {
+            if (idx < sizeof(buffer) - 1) {
+                buffer[idx++] = c;
+            }
+        }
     }
 }
